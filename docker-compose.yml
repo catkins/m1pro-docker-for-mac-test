@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  mysql-native:
+    image: biarms/mysql:5.7.33-beta-circleci
+    platform: linux/arm64
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_USER: test
+      MYSQL_PASSWORD: example
+      MYSQL_DATABASE: testdb
+    ports:
+      - "3366:3306"
+
+  mysql-rosetta:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_USER: test
+      MYSQL_PASSWORD: example
+      MYSQL_DATABASE: testdb
+    ports:
+      - "3377:3306"
+
+  bench:
+    build: .
+    links:
+      - mysql-native
+      - mysql-rosetta
+
+    

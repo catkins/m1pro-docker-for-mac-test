@@ -18,8 +18,8 @@ func main() {
 	fmt.Printf("sleeping 5\n")
 	time.Sleep(5 * time.Second)
 
-	bench("test:example@(mysql-rosetta)/testdb")
-	bench("test:example@(mysql-native)/testdb")
+	bench("test:example@(mysql)/testdb")
+	// bench("test:example@(mysql-native)/testdb")
 }
 
 func bench(dbhost string) {
